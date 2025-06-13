@@ -1,13 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { signIn, getProviders } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 
-export default function SignInPage() {
+// Separate component for the part that uses useSearchParams
+function SignInForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -174,5 +175,14 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+// Main component with Suspense wrapper
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInForm />
+    </Suspense>
   )
 } 

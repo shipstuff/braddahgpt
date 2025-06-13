@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth'
 import { PrismaClient } from '@prisma/client'
 import OpenAI from 'openai'
 
+export const dynamic = 'force-dynamic'
+
 const prisma = new PrismaClient()
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
