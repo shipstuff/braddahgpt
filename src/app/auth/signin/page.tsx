@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { signIn, getProviders } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 
 export default function SignInPage() {
   const [email, setEmail] = useState('')
@@ -77,18 +79,20 @@ export default function SignInPage() {
           <div className="space-y-3">
             {providers?.google && (
               <button
-                onClick={() => signIn('google')}
+                onClick={() => signIn('google', { callbackUrl: '/' })}
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
               >
+                <FontAwesomeIcon icon={faGoogle} className="w-5 h-5 mr-2" />
                 <span>Sign in with Google</span>
               </button>
             )}
 
             {providers?.github && (
               <button
-                onClick={() => signIn('github')}
+                onClick={() => signIn('github', { callbackUrl: '/' })}
                 className="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm bg-gray-800 text-sm font-medium text-white hover:bg-gray-900"
               >
+                <FontAwesomeIcon icon={faGithub} className="w-5 h-5 mr-2" />
                 <span>Sign in with GitHub</span>
               </button>
             )}

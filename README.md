@@ -48,6 +48,7 @@ GITHUB_CLIENT_SECRET="your_github_client_secret"
 
 ## Database Setup
 
+### macOS
 ```bash
 # Install PostgreSQL (macOS)
 brew install postgresql@15
@@ -69,6 +70,37 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO braddahgpt_user;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO braddahgpt_user;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO braddahgpt_user;
 \q
+```
+
+### Linux/WSL
+```bash
+# Update package list and install PostgreSQL
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Start PostgreSQL service (WSL uses 'service' instead of 'systemctl')
+sudo service postgresql start
+
+# Create database and user
+sudo -u postgres psql
+CREATE DATABASE braddahgpt;
+CREATE USER braddahgpt_user WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE braddahgpt TO braddahgpt_user;
+ALTER USER braddahgpt_user CREATEDB;
+\q
+
+# Connect to database and grant schema permissions
+sudo -u postgres psql braddahgpt
+GRANT ALL ON SCHEMA public TO braddahgpt_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO braddahgpt_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO braddahgpt_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO braddahgpt_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO braddahgpt_user;
+\q
+
+# Note: You may see "could not flush dirty data" warnings in WSL - these are harmless
+# You'll need to start PostgreSQL manually each time you restart WSL:
+# sudo service postgresql start
 ```
 
 ## Installation
@@ -110,7 +142,8 @@ bunx prisma studio             # Open database GUI
 bunx prisma db push            # Push schema changes without migration
 
 # Database inspection
-psql braddahgpt                # Connect to database
+psql braddahgpt                # Connect to database (macOS)
+sudo -u postgres psql braddahgpt  # Connect to database (Linux/WSL)
 ```
 
 ## OAuth Setup
@@ -147,21 +180,23 @@ braddahgpt/
 └── package.json # Dependencies and scripts
 ```
 
+
 ## Database Schema
 
 - **Users**: Authentication and profile data
-- **Accounts**: OAuth provider connections
-- **Chats**: Chat conversations (for future implementation)
-- **Messages**: Individual chat messages (for future implementation)
+- **Accounts**: OAuth provider connections  
+- **Chats**: Chat conversations with titles and timestamps
+- **Messages**: Individual messages with role (USER/ASSISTANT) and content
 
-## Next Steps
+## Next Steps (Future Enhancements)
 
-- OpenAI API integration for chat responses
-- Hawaiian pidgin system prompt implementation
-- Chat history persistence and retrieval
-- Real-time message streaming
-- Production deployment configuration
-
-## License
-
-[License Type]
+- **Streaming AI responses** - Real-time typing effect for AI messages
+- **URL routing** - Individual URLs for each chat (`/chat/[chatId]`)
+- **Smart chat titles** - Auto-generate meaningful titles from conversation content
+- **Mobile responsiveness** - Optimize UI for mobile devices
+- **Message search** - Search across all conversations
+- **Export conversations** - Download chat history as text/PDF
+- **GPT-4 support** - Upgrade to more advanced AI model
+- **Custom system prompts** - User-configurable AI personality
+- **Message reactions** - Like/dislike AI responses
+- **Production deployment** - Deploy to Vercel/Railway with proper environment setup
