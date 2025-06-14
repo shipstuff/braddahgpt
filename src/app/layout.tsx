@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'BraddahGPT',
     images: [
       {
-        url: '/Howzit.png',
+        url: '/howzit.png',
         width: 1200,
         height: 630,
         alt: 'BraddahGPT - Hawaiian Pidgin AI Assistant',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BraddahGPT - Hawaiian Pidgin AI Assistant',
     description: 'Ho, howzit! Chat with your Hawaiian pidgin AI assistant, brah!',
-    images: ['/Howzit.png'],
+    images: ['/howzit.png'],
   },
   
   // Additional meta tags
@@ -50,7 +50,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-B79825SJ06`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -58,7 +58,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            gtag('config', 'G-B79825SJ06');
           `}
         </Script>
         
