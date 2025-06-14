@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'BraddahGPT',
     images: [
       {
-        url: '/robohowzit.png',
+        url: 'https://braddahgpt.com/robohowzit.png',
         width: 1200,
         height: 630,
         alt: 'BraddahGPT - Hawaiian Pidgin AI Assistant',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BraddahGPT - Hawaiian Pidgin AI Assistant',
     description: 'Ho, howzit! Chat with your Hawaiian pidgin AI assistant, brah!',
-    images: ['/robohowzit.png'],
+    images: ['https://braddahgpt.com/robohowzit.png'],
   },
   
   // Additional meta tags
