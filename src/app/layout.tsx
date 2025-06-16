@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'BraddahGPT',
   description: 'Your Hawaiian pidgin AI assistant, brah!',
+  icons: {
+    icon: 'https://braddahgpt.com/robohowzit.png',
+  },
   
   // Open Graph (Facebook, LinkedIn, Discord, etc.)
   openGraph: {
