@@ -17,6 +17,7 @@ function SignInForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const message = searchParams.get('message')
+  const urlError = searchParams.get('error')
 
   useEffect(() => {
     const loadProviders = async () => {
@@ -25,6 +26,15 @@ function SignInForm() {
     }
     loadProviders()
   }, [])
+
+  const getErrorMessage = () => {
+    if (urlError === 'OAuthAccountNotLinked') {
+      return 'This email is already registered with a different sign-in method. Please use your email and password to sign in, or contact support if you need help linking your accounts.'
+    }
+    return error
+  }
+
+  const displayError = getErrorMessage()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -71,9 +81,19 @@ function SignInForm() {
             </div>
           )}
 
-          {error && (
-            <div className="rounded-md bg-red-50 p-4 mb-6">
-              <div className="text-sm text-red-700">{error}</div>
+          {displayError && (
+            <div className={`rounded-md p-4 mb-6 ${
+              urlError === 'OAuthAccountNotLinked' 
+                ? 'bg-blue-50' 
+                : 'bg-red-50'
+            }`}>
+              <div className={`text-sm ${
+                urlError === 'OAuthAccountNotLinked' 
+                  ? 'text-blue-700' 
+                  : 'text-red-700'
+              }`}>
+                {displayError}
+              </div>
             </div>
           )}
 

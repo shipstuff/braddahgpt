@@ -101,7 +101,6 @@ export default function Home() {
       const response = await fetch(`/api/chat?chatId=${chatId}`)
       const data = await response.json()
       
-      // Convert database format to UI format
       const formattedMessages: Message[] = data.messages.map((msg: any) => ({
         role: msg.role.toLowerCase() as 'user' | 'assistant',
         content: msg.content,
@@ -115,20 +114,20 @@ export default function Home() {
   }
 
   const openDeleteModal = (chatId: string, chatTitle: string, event: React.MouseEvent) => {
-    event.stopPropagation() // Prevent the chat from being selected when clicking delete
-    setChatToDelete(chatId) // Store which chat we want to delete
-    setChatTitleToDelete(chatTitle) // Store the chat title for display
-    setShowDeleteModal(true) // Show the modal
+    event.stopPropagation() 
+    setChatToDelete(chatId) 
+    setChatTitleToDelete(chatTitle) 
+    setShowDeleteModal(true) 
   }
 
   const closeDeleteModal = () => {
-    setShowDeleteModal(false) // Hide the modal
-    setChatToDelete(null) // Clear the chat ID
-    setChatTitleToDelete('') // Clear the chat title
+    setShowDeleteModal(false)
+    setChatToDelete(null) 
+    setChatTitleToDelete('') 
   }
 
   const confirmDelete = async () => {
-    if (!chatToDelete) return // Safety check - don't delete if no chat is selected
+    if (!chatToDelete) return 
     
     try {
       const response = await fetch(`/api/chat?chatId=${chatToDelete}`, {
@@ -136,10 +135,8 @@ export default function Home() {
       })
       
       if (response.ok) {
-        // Remove from sidebar
         fetchRecentChats()
         
-        // If we deleted the currently selected chat, clear it
         if (selectedChatId === chatToDelete) {
           setSelectedChatId(null)
           setCurrentChatId(null)
@@ -149,7 +146,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error deleting chat:', error)
     } finally {
-      closeDeleteModal() // Always close the modal when done
+      closeDeleteModal() 
     }
   }
 
