@@ -345,7 +345,7 @@ export default function Home() {
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-2 text-center">
-                Sup you faka...
+                Ke Aloha ʻĀina
               </p>
             </div>
           </div>
